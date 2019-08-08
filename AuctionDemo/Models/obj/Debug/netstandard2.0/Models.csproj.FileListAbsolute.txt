@@ -1,0 +1,9 @@
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\bin\Debug\netstandard2.0\Models.deps.json
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\bin\Debug\netstandard2.0\Models.dll
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\bin\Debug\netstandard2.0\Models.pdb
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\obj\Debug\netstandard2.0\Models.csprojAssemblyReference.cache
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\obj\Debug\netstandard2.0\Models.csproj.CoreCompileInputs.cache
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\obj\Debug\netstandard2.0\Models.AssemblyInfoInputs.cache
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\obj\Debug\netstandard2.0\Models.AssemblyInfo.cs
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\obj\Debug\netstandard2.0\Models.dll
+C:\Users\vasyl.kindii\source\repos\AuctionDemo\Models\obj\Debug\netstandard2.0\Models.pdb

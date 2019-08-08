@@ -1,0 +1,17 @@
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\bin\Debug\AuctionEmailSenderDemo.exe.config
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\bin\Debug\AuctionEmailSenderDemo.exe
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\bin\Debug\AuctionEmailSenderDemo.pdb
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\bin\Debug\EntityFramework.dll
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\bin\Debug\EntityFramework.xml
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csproj.CoreCompileInputs.cache
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csproj.CopyComplete
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.exe
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.pdb
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.ProjectInstaller.resources
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csproj.GenerateResource.cache
+C:\Data\AuctionEmailSenderDemo.exe.config
+C:\Data\AuctionEmailSenderDemo.exe
+C:\Data\AuctionEmailSenderDemo.pdb
+C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csprojAssemblyReference.cache
