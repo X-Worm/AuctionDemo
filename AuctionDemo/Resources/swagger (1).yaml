@@ -1,0 +1,573 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Auction server"
+  version: "1.0.0"
+  title: "Auction"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "Auction.swagger.io"
+basePath: "/api"
+tags:
+- name: "lot"
+  description: "Operations about lot"
+- name: "bid"
+  description: "Operations about bid"
+- name: "user"
+  description: "Operations about user"
+schemes:
+- "https"
+- "http"
+paths:
+  /lot:
+    get:
+      tags:
+      - "lot"
+      summary: "Get all lots of other users"
+      description: "This can only be done by the logged in user."
+      
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - 
+        name: "pagesize"
+        in: "query"
+        description: "Number of lots in page , by default is 5"
+        type : "integer"
+        
+      - name: "pagenumber"
+        in : "query"
+        description: "Number of page , by default is 1"
+        type : "integer"
+        
+      - name: "sort"
+        in : "query"
+        description: "sort list by comma separated set parameters , by default is Lot_Id"
+        type : "string"
+        
+      - name: "filterLotName"
+        in : "query"
+        description: ""
+        type : "string"
+      
+      - name: "filterPrice"
+        in : "query"
+        description: "get bids with price in some range , set field in format 'number,number'"
+        type : "string"
+        
+      - name: "filterDate"
+        in : "query"
+        description: "get bids with date in some range , set field in format 'Datetime,Datetime'"
+        type : "string"
+        
+      - name: "isFinished"
+        in : "query"
+        description: "if true get all finished lots"
+        type : "boolean"
+        
+      responses:
+        200:
+          description: "successful operation (List of lots or empty page)"
+          schema:
+            $ref: "#/definitions/Lots"
+        401:
+          description: "unauthorized"
+        
+        500:
+          description: "internal server error"
+        
+      security:
+      - auction_auth: []
+    
+    post:
+      tags:
+      - "lot"
+      summary: "Create new lot"
+      description: "This can only be done by the logged in user."
+      
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - 
+        name: "body"
+        in: "body"
+        description: "New lot object"
+        required: true
+        schema:
+          $ref: "#/definitions/Lot"
+        
+      responses:
+        201:
+          description: "created"
+        401:
+          description: "unauthorized"
+        500 : 
+          description: "internal server error"
+      security:
+      - auction_auth: []
+  /lot/{id}:
+    delete:
+      tags:
+      - "lot"
+      summary: "Delete lot by id"
+      description: "This can only be done by the logged in user."
+      
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of lot to delete"
+        required: true
+        type : "integer"
+        
+        
+      responses:
+        204:
+          description: "No content"
+        401:
+          description: "unauthorized"
+        404:
+          description: "Not found"
+        500 : 
+          description: "internal server error"
+      security:
+      - auction_auth: []
+    
+    put:
+      tags:
+      - "lot"
+      summary: "Update lot by id"
+      description: "This can only be done by the logged in user."
+      
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description : "Id of lot to update"
+        required: true
+        type: "integer"
+      - name: "body"
+        in: "body"
+        description: "New lot object"
+        required: true
+        schema:
+          $ref: "#/definitions/Lot"
+        
+      responses:
+        200:
+          description: "OK"
+        401:
+          description: "unauthorized"
+        404 : 
+          description: "Invalid ID , Not found"
+        500 : 
+          description: "internal server error"
+      security:
+      - auction_auth: []
+    
+  /bid:
+    post:
+      tags:
+      - "bid"
+      summary: "Create new bid on user lot"
+      description: "This can only be done by the logged in user."
+      
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - 
+        name: "body"
+        in: "body"
+        description: "New bid object"
+        required: true
+        schema:
+          $ref: "#/definitions/Bid"
+        
+      responses:
+        201:
+          description: "created"
+        401:
+          description: "unauthorized"
+        404:
+          description: "Not found , invalid Lot_id"
+        500 : 
+          description: "internal server error"
+      security:
+      - auction_auth: []
+  /bid/{lotid}:
+    get:
+      tags:
+      - "bid"
+      summary: "Get all bids of some lot "
+      description: "This can only be done by the logged in user."
+      
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      -
+        name: "lotid"
+        in: "path"
+        description: "Get all bid of some lot"
+        required: true
+        type : "integer"
+      - 
+        name: "pagesize"
+        in: "query"
+        description: "Number of lots in page , by default is 5"
+        type : "integer"
+        
+      - name: "pagenumber"
+        in : "query"
+        description: "Number of page , by default is 1"
+        type : "integer"
+        
+      - name: "sort"
+        in : "query"
+        description: "sort list by comma separated set parameters , by default is Lot_Id"
+        type : "string"
+        
+      - name: "filterPrice"
+        in : "query"
+        description: "get bids with price in some range , set field in format 'number,number'"
+        type : "string"
+        
+      - name: "filterDate"
+        in : "query"
+        description: "get bids with date in some range , set field in format 'Datetime,Datetime'"
+        type : "string"
+        
+      responses:
+        200:
+          description: "successful operation (List of bids or empty page)"
+          schema:
+            $ref: "#/definitions/Bids"
+        401:
+          description: "unauthorized"
+        
+        404: 
+          description: "Not found, invalid Lot_Id"
+        
+        500:
+          description: "internal server error"
+        
+      security:
+      - auction_auth: []
+  /user/login:
+    get:
+      tags:
+      - "user"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "Authorization"
+        in: "header"
+        description: "The user name and password code in base64 for login"
+        required: true
+        type: "string"
+      
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        400:
+          description: "Invalid username/password supplied"
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logoutUser"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+  /user/account:
+    get:
+      tags:
+      - "user"
+      summary: "withdraw from the account "
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: 
+      - name: "Amount"
+        in: "query"
+        description: ""
+        required: true
+        type : "integer"
+      responses:
+        200:
+          description: "successful operation" 
+        401 : 
+          description: "unauthorized"
+        400:
+          description: "bad request , invalid Amount"
+        500:
+          description: "internal server error"
+        
+      security:
+      - auction_auth: [] 
+    post:
+      tags:
+      - "user"
+      summary: "add  to account" 
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: 
+      - name: "Amount"
+        in: "query"
+        description: ""
+        required: true
+        type : "integer"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "unauthorized"
+        500:
+          description: "internal server error"
+      
+      security:
+      - auction_auth: []   
+  /user/registrate:
+    post:
+      tags:
+      - "user"
+      summary: "Registrate new user" 
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: 
+      - name: "User"
+        in: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "unauthorized"
+        500:
+          description: "internal server error"
+      
+      security:
+      - auction_auth: []  
+  /user/configuration:
+    get:
+      tags:
+      - "user"
+      summary: "Get information about User Configurations "
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Post User_Configuration model that describe users configurations"
+          schema:
+            $ref: "#/definitions/User_Configuration"
+        401 : 
+          description: "unauthorized"
+        500:
+          description: "internal server error"
+      security:
+      - auction_auth: [] 
+    
+    post:
+      tags:
+      - "user"
+      summary: "Post User Configurations "
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: 
+       - 
+        name: "userConfigurations"
+        in: "body"
+        description: "New User_Configuration object"
+        required: true
+        schema:
+          $ref: "#/definitions/User_Configuration"
+      responses:
+        201:
+          description: "Created"
+        401 : 
+          description: "unauthorized"
+        500:
+          description: "internal server error"
+        
+      security:
+      - auction_auth: [] 
+      
+    put:
+      tags:
+      - "user"
+      summary: "Put User Configurations "
+      description: ""
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: 
+       - 
+        name: "userConfigurations"
+        in: "body"
+        description: "New User_Configuration object"
+        required: true
+        schema:
+          $ref: "#/definitions/User_Configuration"
+      responses:
+        200:
+          description: "OK"
+        401 : 
+          description: "unauthorized"
+        500:
+          description: "internal server error"
+        
+      security:
+      - auction_auth: [] 
+  
+    
+securityDefinitions:
+  auction_auth:
+    type: "basic"
+  
+definitions:
+  User:
+    type: "object"
+    properties:
+      User_Id:
+        type: "integer"
+        format: "int16"
+      Name:
+        type: "string"
+      Surname:
+        type: "string"
+      Mail_Address:
+        type: "string"
+      Password:
+        type: "string"
+      Balance:
+        type: "integer"
+        format: "int32"
+      Frozen_Balance:
+        type: "integer"
+        format: "int32"
+      Login:
+        type: "string"
+  Lot:
+    type: "object"
+    properties:
+      Lot_Id:
+        type: "integer"
+        format: "int16"
+      Name : 
+        type: "string"
+        format: "string"
+      Decription: 
+        type: "string"
+        format: "string"
+      Initial_Price:
+        type: "integer"
+        format: "int32"
+      Final_Price:
+        type: "integer"
+        format: "int32"
+      TimeOfLot : 
+        type: "string"
+        format: "time"
+      StartDate : 
+        type: "string"
+        format: "date-time"
+      EndDate : 
+        type: "string"
+        format: "date-time"
+      User_Id :
+        type: "integer"
+        format: "int16"
+      User_Id_Winner :
+        type: "integer"
+        format: "int16" 
+  Lots:
+    type: "array"
+    items:
+       $ref: "#/definitions/Lot"
+  Bid:
+    type: "object"
+    properties:
+      Bid_Id:
+        type: "integer"
+        format: "int16"
+      Lot_Id:
+        type: "integer"
+        format: "int16"
+      Comments:
+        type: "string"
+        format: "string"
+      bid_Price :
+        type: "integer"
+        format: "int32"
+      Date:
+        type: "string"
+        format: "date-time"
+      User_Id: 
+        type: "integer"
+        format: "int16"
+  Bids :
+      type: "array"
+      items:
+        type: "object"
+        $ref: "#/definitions/Bid"
+  User_Configuration:
+    type: "object"
+    properties:
+      User_Id:
+        type: "integer"
+        format: "int16"
+      Auction_Finished:
+        type: "integer"
+        format: "bit"
+      Bid_Win_Lot: 
+        type: "integer"
+        format: "bit"
+      Bid_Placed_Higher:
+        type: "integer"
+        format: "bit"
+       
+  
