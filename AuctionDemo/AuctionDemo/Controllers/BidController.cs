@@ -63,9 +63,12 @@ namespace AuctionDemo.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/bid/{lotId}")]
-        public  IHttpActionResult BidGetBidsGet([FromUri]short lotId = 1, [FromUri]int pagesize = 5, [FromUri]int pagenumber = 1, [FromUri]string sort = "" )
+        public IHttpActionResult BidGetBidsGet([FromUri]short lotId = 1, [FromUri]int pagesize = 5, [FromUri]int pagenumber = 1,
+              [FromUri]string sort = "", [FromUri]string filterPrice = "", [FromUri]string filterDate = "")
         {
-            var result = new BidService().GetAllBids(lotId  , sort ,  pagesize, pagenumber);
+            // Example: filterPrice in format - 50,100 - get Only Price in range (50 , 100) , if formatPrice - 50 - get price in range (0 , 50)
+
+            var result = new BidService().GetAllBids(lotId, sort, filterPrice, filterDate, pagesize, pagenumber);
 
             return Json(result);
         }

@@ -15,3 +15,9 @@ C:\Data\AuctionEmailSenderDemo.exe.config
 C:\Data\AuctionEmailSenderDemo.exe
 C:\Data\AuctionEmailSenderDemo.pdb
 C:\Users\vasyl.kindii\source\repos\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csprojAssemblyReference.cache
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csprojAssemblyReference.cache
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.ProjectInstaller.resources
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csproj.GenerateResource.cache
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csproj.CoreCompileInputs.cache
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.exe
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.pdb

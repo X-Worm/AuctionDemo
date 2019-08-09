@@ -166,13 +166,63 @@ namespace AuctionDemo.Services
             smtp.Send(m);
         }
 
-        public List<Bid> GetAllBids(short lotId  , string order  , int pageSize = 5, int pageNumber = 1)
+        public List<Bid> GetAllBids(short lotId, string order, string filterPrice, string filterDate, int pageSize = 5, int pageNumber = 1)
         {
+            List<int> toFilterPrice = new List<int>();
+            // Split filter Price
+            if (filterPrice != "" && filterPrice != null)
+            {
+                List<string> filterPriceList = filterPrice.Split(',').ToList();
+                if (filterPriceList.Count == 1)
+                {
+                    filterPriceList.Add("0");
+                    filterPriceList.Reverse();
+                }
+                toFilterPrice = filterPriceList.Select(item => Convert.ToInt32(item)).ToList();
+                if (toFilterPrice[1] < toFilterPrice[0]) throw new BadRequestException("Invalid filterPrice values");
+            }
+            else
+            {
+                // disable filtering if filterPrice is empty
+                toFilterPrice.Add(0); toFilterPrice.Add(Int32.MaxValue);
+            }
+
+            // split filterDate
+            List<DateTime> toFilterDate = new List<DateTime>();
+            if (filterDate != "" && filterDate != null)
+            {
+                List<string> filterDateList = filterDate.Split(',').ToList();
+                if (filterDateList.Count == 1)
+                {
+                    filterDateList.Add(DateTime.MinValue.ToString());
+                    filterDateList.Reverse();
+                }
+                toFilterDate = filterDateList.Select(item => Convert.ToDateTime(item)).ToList();
+                if (toFilterDate[1] < toFilterDate[0]) throw new BadRequestException("Invalid filterPrice values");
+            }
+            else
+            {
+                // disable filtering if filterDate is empty
+                toFilterDate.Add(DateTime.MinValue); toFilterDate.Add(DateTime.MaxValue);
+            }
+
+
+
+            int minFilterPrice = toFilterPrice[0];
+            int maxFilterPrice = toFilterPrice[1];
+
+            DateTime minFilterDate = toFilterDate[0];
+            DateTime maxFilterDate = toFilterDate[1];
+
             var result = unitOfWork.Bid.dbSet
                 .Where(item => item.Lot_Id == lotId)
                 .OrderBy(item => item.Bid_Id) // Default sort
+                .Where(item => item.bid_Price >= minFilterPrice && item.bid_Price <= maxFilterPrice) // apply price filtering
+                .Where(item => item.Date >= minFilterDate && item.Date <= maxFilterDate) // apply date filtering
                 .ApplySort(order)
-                .Skip(pageSize*(pageNumber-1)).Take(pageSize);
+                .Skip(pageSize * (pageNumber - 1)).Take(pageSize);
+
+
             return result.ToList();
         }
 
