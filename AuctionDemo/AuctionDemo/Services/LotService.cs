@@ -77,17 +77,82 @@ namespace AuctionDemo.Services
             
         }
 
-        public List<Lot> GetLots(int pagesize , int pagenumber , string sort )
+        public List<Lot> GetLots(string filterLotName, bool isFinished, string filterPrice, string filterDate, int pagesize, int pagenumber, string sort)
         {
-         
-            
-            var result = unitOfWork.Lot.dbSet
+
+            List<int> toFilterPrice = new List<int>();
+            // Split filter Price
+            if (filterPrice != "" && filterPrice != null)
+            {
+                List<string> filterPriceList = filterPrice.Split(',').ToList();
+                if (filterPriceList.Count == 1)
+                {
+                    filterPriceList.Add("0");
+                    filterPriceList.Reverse();
+                }
+                toFilterPrice = filterPriceList.Select(item => Convert.ToInt32(item)).ToList();
+                if (toFilterPrice[1] < toFilterPrice[0]) throw new BadRequestException("Invalid filterPrice values");
+            }
+            else
+            {
+                // disable filtering if filterPrice is empty
+                toFilterPrice.Add(0); toFilterPrice.Add(Int32.MaxValue);
+            }
+
+            // split filterDate
+            List<DateTime> toFilterDate = new List<DateTime>();
+            if (filterDate != "" && filterDate != null)
+            {
+                List<string> filterDateList = filterDate.Split(',').ToList();
+                if (filterDateList.Count == 1)
+                {
+                    filterDateList.Add(DateTime.MinValue.ToString());
+                    filterDateList.Reverse();
+                }
+                toFilterDate = filterDateList.Select(item => Convert.ToDateTime(item)).ToList();
+                if (toFilterDate[1] < toFilterDate[0]) throw new BadRequestException("Invalid filterPrice values");
+            }
+            else
+            {
+                // disable filtering if filterPrice is empty
+                toFilterDate.Add(DateTime.MinValue); toFilterDate.Add(DateTime.MaxValue);
+            }
+
+
+
+            int minFilterPrice = toFilterPrice[0];
+            int maxFilterPrice = toFilterPrice[1];
+
+            DateTime minFilterDate = toFilterDate[0];
+            DateTime maxFilterDate = toFilterDate[1];
+
+
+            if (isFinished)
+            {
+                var result = unitOfWork.Lot.dbSet
                 .OrderBy(item => item.Lot_Id) // Default sort
+                .Where(item => item.User_Id_Winner > 0 || item.User_Id_Winner == -1) // if lot is finished and has bids or is finished and doesnt has userIdWinner
+                .Where(item => item.Name.StartsWith(filterLotName)) // apply filterLotName
+                .Where(item => item.Current_Price >= minFilterPrice && item.Current_Price <= maxFilterPrice) // aply price filtering
+                .Where(item => item.Start_Date >= minFilterDate && item.Start_Date <= maxFilterDate) // aply date filtering
                 .ApplySort(sort)
                 .Skip(pagesize * (pagenumber - 1)).Take(pagesize);
 
-            return result.ToList();
+                return result.ToList();
+            }
+            else
+            {
+                var result = unitOfWork.Lot.dbSet
+                    .OrderBy(item => item.Lot_Id) // Default sort
+                    .Where(item => item.User_Id_Winner == 0)
+                    .Where(item => item.Name.StartsWith(filterLotName)) // apply filterLotName
+                    .Where(item => item.Current_Price >= minFilterPrice && item.Current_Price <= maxFilterPrice) // aply price filtering
+                    .Where(item => item.Start_Date >= minFilterDate && item.Start_Date <= maxFilterDate) // aply date filtering
+                    .ApplySort(sort)
+                    .Skip(pagesize * (pagenumber - 1)).Take(pagesize);
 
+                return result.ToList();
+            }
         }
 
         public Lot GetLot(short ? LotId )

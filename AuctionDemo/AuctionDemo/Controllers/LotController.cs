@@ -66,9 +66,10 @@ namespace AuctionDemo.Controllers
         [HttpGet]
         [Authorize]
         [Route("api/lot")]
-        public virtual IHttpActionResult GetLot([FromUri]int pagesize = 5, [FromUri]int pagenumber = 1, [FromUri]string sort = "")
+        public virtual IHttpActionResult GetLot([FromUri]int pagesize = 5, [FromUri]int pagenumber = 1, [FromUri]string sort = "", [FromUri]string filterLotName = "",
+             [FromUri]bool isFinished = true, [FromUri]string filterCurrentPrice = "", [FromUri]string filterDate = "")
         {
-            var result = new LotService().GetLots(pagesize, pagenumber, sort);
+            var result = new LotService().GetLots(filterLotName, isFinished, filterCurrentPrice, filterDate, pagesize, pagenumber, sort);
             return Json(result);
 
         }
