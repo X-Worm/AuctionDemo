@@ -47,20 +47,23 @@ Picture 1. describe main database diagram. Database of app consist of 4 tables :
 ## 5. WebAPI detailed design
 All WebAPI routes are described  in swager.yaml file provided with this document.
 In general:
-    1. To have a possibility to perform needed CRUD operations with Lots , we have lot controller that implements next methods: 
+   ### 1. Lot 
+   To have a possibility to perform needed CRUD operations with Lots , we have lot controller that implements next methods: 
        api/lot (GET) – to get lots of other users ,
        api/lot/{id} (GET) – to get lot by Lot_Id , 
        api/lot (POST) – to create new lot , 
        api/lot/{Lot_Id} (DELETE) – to delete lot by id , 
        api/lot/{Lot_Id} (PUT) – to update lot by id.
-   2. To have a possibility to perform operations with users : refill the account , login , logout , change configurations we have user        controller with methods : 
+  ### 2. User
+  To have a possibility to perform operations with users : refill the account , login , logout , change configurations we have user        controller with methods : 
        api/user/login (POST) – logs user into system , 
        api/user/logout (GET)– logs out , 
        api/user/account (GET , POST) – withdraw from the account , add to account , 
        api/user/account/info (GET) – get account information.
        api/user/configuration (GET , POST , PUT) -  get information about user congigurations (* default configurations (set all flags to false) are installed when the user successfully registers).
        
-    3. To have a possibility to create a bet  , get bids of some lot (lot history) , we have bid controller with methods : 
+  ### 3. Bid
+  To have a possibility to create a bet  , get bids of some lot (lot history) , we have bid controller with methods : 
        api/bid (POST) – create new bid on the user lot  , 
        api/bid (GET)– get all bids of some lot.
 
