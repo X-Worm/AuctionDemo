@@ -448,6 +448,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AuctionDemo.BLL\AuctionDemo.BLL.csproj">
+      <Project>{1D29C1B0-8B58-48A0-94DB-CC4A3A85805E}</Project>
+      <Name>AuctionDemo.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AuctionDemo.DAL\AuctionDemo.DAL.csproj">
+      <Project>{5BD919E2-5E5F-4994-A3A4-F129211421D7}</Project>
+      <Name>AuctionDemo.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Exception_Log\Exception_Log.csproj">
       <Project>{59488954-C5FD-4D98-A883-294F3BA017C4}</Project>
       <Name>Exception_Log</Name>

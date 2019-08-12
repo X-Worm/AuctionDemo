@@ -338,3 +338,9 @@ C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\obj\D
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\obj\Debug\AuctionDemo.csproj.CopyComplete
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\obj\Debug\AuctionDemo.dll
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\obj\Debug\AuctionDemo.pdb
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.DAL.dll
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.DAL.pdb
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.DAL.dll.config
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.BLL.dll
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.BLL.pdb
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.BLL.dll.config

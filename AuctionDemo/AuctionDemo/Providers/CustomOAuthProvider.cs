@@ -1,5 +1,5 @@
-﻿using AuctionDemo.Models;
-using AuctionDemo.Models.AuthRepository;
+﻿using AuctionDemo.DAL.Models;
+using AuctionDemo.DAL.Models.AuthRepository;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -41,28 +41,6 @@ namespace AuctionDemo.Providers
             return Task.FromResult<object>(null);
         }
 
-      /*  public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
-        {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
-            using (AuthRepository authRepo = new AuthRepository())
-            {
-                IdentityUser user = await authRepo.FindUser(context.UserName, context.Password);
-
-                if (user == null)
-                {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return;
-                }
-            }
-
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            // Optional : You can add a role based claim by uncommenting the line below.
-            // identity.AddClaim(new Claim(ClaimTypes.Role, "Administrator"));
-
-            context.Validated(identity);
-        } */
 
 
 

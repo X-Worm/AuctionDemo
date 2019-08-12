@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionEmailSenderDemo", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exception_Log", "Exception_Log\Exception_Log.csproj", "{59488954-C5FD-4D98-A883-294F3BA017C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionDemo.DAL", "AuctionDemo.DAL\AuctionDemo.DAL.csproj", "{5BD919E2-5E5F-4994-A3A4-F129211421D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionDemo.BLL", "AuctionDemo.BLL\AuctionDemo.BLL.csproj", "{1D29C1B0-8B58-48A0-94DB-CC4A3A85805E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{59488954-C5FD-4D98-A883-294F3BA017C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59488954-C5FD-4D98-A883-294F3BA017C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59488954-C5FD-4D98-A883-294F3BA017C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BD919E2-5E5F-4994-A3A4-F129211421D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BD919E2-5E5F-4994-A3A4-F129211421D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BD919E2-5E5F-4994-A3A4-F129211421D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BD919E2-5E5F-4994-A3A4-F129211421D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D29C1B0-8B58-48A0-94DB-CC4A3A85805E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D29C1B0-8B58-48A0-94DB-CC4A3A85805E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D29C1B0-8B58-48A0-94DB-CC4A3A85805E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D29C1B0-8B58-48A0-94DB-CC4A3A85805E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

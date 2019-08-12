@@ -1,5 +1,5 @@
-﻿using AuctionDemo.Models;
-using AuctionDemo.Services;
+﻿using AuctionDemo.DAL.Models;
+using AuctionDemo.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using AuctionDemo.BLL.Services;
 
 namespace AuctionDemo.Controllers
 {
@@ -70,6 +71,7 @@ namespace AuctionDemo.Controllers
 
             var result = new BidService().GetAllBids(lotId, sort, filterPrice, filterDate, pagesize, pagenumber);
 
+            //   return (result != null && result.Count != 0) ? Ok(result) : NoContent(result);
             return Json(result);
         }
 

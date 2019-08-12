@@ -1,6 +1,7 @@
 ﻿using AuctionEmailSenderDemo.AuctionModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -59,6 +60,13 @@ namespace AuctionEmailSenderDemo.Service
                 LotWinner.Frozen_Balance -= FinalPrice;
                 db.SaveChanges();
 
+                // Add money to lot_owner user account
+                User localUser = db.User.Where(item => item.User_Id == Owner).FirstOrDefault();
+                localUser.Balance += LotWinner.Frozen_Balance;
+                db.User.Attach(localUser);
+                db.Entry(localUser).State = EntityState.Modified;
+                db.SaveChanges();
+
             }
 
             if (GetEmail.Value)
@@ -106,7 +114,7 @@ namespace AuctionEmailSenderDemo.Service
                 // адрес smtp-сервера і порт
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                 // логін і пароль
-                NetworkCredential credentials = new NetworkCredential("vasilkindiy@gmail.com", "");
+                NetworkCredential credentials = new NetworkCredential("vasilkindiy@gmail.com", "vasasa00");
                 smtp.Credentials = credentials;
                 smtp.EnableSsl = true;
                 if (credentials.Password == "") return;
@@ -142,7 +150,7 @@ namespace AuctionEmailSenderDemo.Service
                     // адрес smtp-сервера і порт
                     SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                     // логін і пароль
-                    NetworkCredential credentials = new NetworkCredential("vasilkindiy@gmail.com", "");
+                    NetworkCredential credentials = new NetworkCredential("vasilkindiy@gmail.com", "vasasa00");
                     smtp.Credentials = credentials;
                     smtp.EnableSsl = true;
                     if (credentials.Password == "") return;

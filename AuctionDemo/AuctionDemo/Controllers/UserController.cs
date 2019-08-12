@@ -1,6 +1,6 @@
-﻿using AuctionDemo.Models;
-using AuctionDemo.Models.AuthRepository;
-using AuctionDemo.Services;
+﻿using AuctionDemo.DAL.Models;
+using AuctionDemo.DAL.Models.AuthRepository;
+using AuctionDemo.BLL.Services;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
-﻿using AuctionDemo.Models;
-using AuctionDemo.Services;
+﻿using AuctionDemo.DAL.Models;
+using AuctionDemo.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel;
