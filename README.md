@@ -34,10 +34,9 @@ Picture 1. describe main database diagram. Database of app consist of 4 tables :
     4. User_Configuration – The service proposes to send letters in the following cases: 1- when the lot is expired - notify the owner that the lot is expired and the user who has made the highest bid that the user has won the lot, 2 - when the user places a bet, notify the user whose bid is now lower. This table will store user configurations that specify which emails to send and which not to send.
 
 
+![N|Solid](https://raw.githubusercontent.com/X-Worm/AuctionDemo/master/AuctionDemo/Resources/Database%20design.png)
 
-
-
- Database Diagram
+ Picture 1: Database Diagram
 
 
 
