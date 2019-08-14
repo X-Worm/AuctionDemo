@@ -15,8 +15,7 @@ namespace AuctionEmailSenderDemo.AuctionModel
             Bid = new HashSet<Bid>();
         }
 
-        [Key]
-        public short Lot_Id { get; set; }
+        public short LotId { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -25,21 +24,21 @@ namespace AuctionEmailSenderDemo.AuctionModel
         [StringLength(200)]
         public string Description { get; set; }
 
-        public int Initial_Price { get; set; }
+        public int InitialPrice { get; set; }
 
-        public int? Final_Price { get; set; }
+        public int? FinalPrice { get; set; }
 
-        public int? Current_Price { get; set; }
+        public int? CurrentPrice { get; set; }
 
-        public DateTime Time_Of_Lot { get; set; }
+        public DateTime TimeOfLot { get; set; }
 
-        public DateTime Start_Date { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateTime? End_Date { get; set; }
+        public DateTime? EndDate { get; set; }
 
-        public short User_Id { get; set; }
+        public short UserId { get; set; }
 
-        public short? User_Id_Winner { get; set; }
+        public short? UserIdWinner { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bid> Bid { get; set; }

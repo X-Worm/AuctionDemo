@@ -1,4 +1,5 @@
-﻿using AuctionDemo.DAL.Models;
+﻿using AuctionDemo.BLL.ExceptionHandler;
+using AuctionDemo.DAL.Models;
 using AuctionDemo.DAL.Models.Unit_of_Work;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,10 @@ namespace AuctionDemo.BLL.Services
         public User_Configuration GetUserConfigurations(short? userId)
         {
             // return user configuration
-            var result = unitOfWork.User_Configuration.dbSet.Where(item => item.User_Id == userId).FirstOrDefault();
+            var result = unitOfWork.User_Configuration.dbSet.Where(item => item.UserId == userId).FirstOrDefault();
             if (result == null)
             {
-                throw new BadRequestException("user doesnt have configurations");
+                throw new NewBadRequestException("user doesnt have configurations");
             }
             return result;
         }
@@ -28,20 +29,20 @@ namespace AuctionDemo.BLL.Services
         public User_Configuration PostUserConfigurations(short? userId, User_Configuration configuration)
         {
             // find users configuration
-            var currentUserConfiguration = unitOfWork.User_Configuration.dbSet.Where(item => item.User_Id == userId).FirstOrDefault();
+            var currentUserConfiguration = unitOfWork.User_Configuration.dbSet.Where(item => item.UserId == userId).FirstOrDefault();
 
             if (currentUserConfiguration == null)
             {
                 //post new configurations
-                configuration.User_Id = userId.Value;
+                configuration.UserId = userId.Value;
                 unitOfWork.User_Configuration.dbSet.Add(configuration);
             }
             else
             {
                 //Update Configurations
-                currentUserConfiguration.Auction_Finished = configuration.Auction_Finished;
-                currentUserConfiguration.Bid_Placed_Higher = configuration.Bid_Placed_Higher;
-                currentUserConfiguration.Bid_Win_Lot = configuration.Bid_Win_Lot;
+                currentUserConfiguration.AuctionFinished = configuration.AuctionFinished;
+                currentUserConfiguration.BidPlacedHigher = configuration.BidPlacedHigher;
+                currentUserConfiguration.BidWinLot = configuration.BidWinLot;
                 unitOfWork.User_Configuration.Update(currentUserConfiguration);
             }
             unitOfWork.Save();
@@ -52,20 +53,20 @@ namespace AuctionDemo.BLL.Services
         public User_Configuration PutUserConfigurations(short? userId, User_Configuration configuration)
         {
             // find users configuration
-            var currentUserConfiguration = unitOfWork.User_Configuration.dbSet.Where(item => item.User_Id == userId).FirstOrDefault();
+            var currentUserConfiguration = unitOfWork.User_Configuration.dbSet.Where(item => item.UserId == userId).FirstOrDefault();
 
             if (currentUserConfiguration == null)
             {
                 //post new configurations
-                configuration.User_Id = userId.Value;
+                configuration.UserId = userId.Value;
                 unitOfWork.User_Configuration.dbSet.Add(configuration);
             }
             else
             {
                 // Update configurations
-                currentUserConfiguration.Auction_Finished = configuration.Auction_Finished;
-                currentUserConfiguration.Bid_Placed_Higher = configuration.Bid_Placed_Higher;
-                currentUserConfiguration.Bid_Win_Lot = configuration.Bid_Win_Lot;
+                currentUserConfiguration.AuctionFinished = configuration.AuctionFinished;
+                currentUserConfiguration.BidPlacedHigher = configuration.BidPlacedHigher;
+                currentUserConfiguration.BidWinLot = configuration.BidWinLot;
             }
             unitOfWork.Save();
 

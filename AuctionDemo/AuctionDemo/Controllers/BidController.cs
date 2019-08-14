@@ -9,7 +9,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using AuctionDemo.BLL.Services;
+using static AutoMapper.Mapper;
+
+using AuctionDemo.ViewModels.Mappers;
 
 namespace AuctionDemo.Controllers
 {
@@ -68,11 +70,12 @@ namespace AuctionDemo.Controllers
               [FromUri]string sort = "", [FromUri]string filterPrice = "", [FromUri]string filterDate = "")
         {
             // Example: filterPrice in format - 50,100 - get Only Price in range (50 , 100) , if formatPrice - 50 - get price in range (0 , 50)
-
             var result = new BidService().GetAllBids(lotId, sort, filterPrice, filterDate, pagesize, pagenumber);
 
-            //   return (result != null && result.Count != 0) ? Ok(result) : NoContent(result);
-            return Json(result);
+            if (result != null && result.Count != 0) return Ok(mapper.Map<IEnumerable<BidViewModel>>(result));
+            // if (result != null && result.Count != 0) return Ok(mapper.Map<IEnumerable<BidViewModel>>(result));
+            else return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
+            
         }
 
     }

@@ -9,6 +9,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Swashbuckle.Swagger.Annotations;
+using AuctionDemo.ViewModels;
 
 namespace AuctionDemo.Controllers
 {
@@ -32,6 +34,7 @@ namespace AuctionDemo.Controllers
         /// <response code="500">internal server error</response>
         [AllowAnonymous]
         [Route("api/user/register")]
+        [SwaggerResponse(HttpStatusCode.Created, "User", typeof(IEnumerable<UserViewModel>))]
         public async Task<IHttpActionResult> Register(User model)
         {
             if (!ModelState.IsValid)
@@ -111,7 +114,7 @@ namespace AuctionDemo.Controllers
         public IHttpActionResult UserAccountPost([FromUri]int amount)
         {
             var result = new UserService().AddMoney(UserId, amount);
-            return Ok(result);
+            return Created("" , result);
         }
 
         /// <summary>
@@ -127,7 +130,7 @@ namespace AuctionDemo.Controllers
         public  IHttpActionResult UserConfigurationGet()
         {
             var result = new UserConfigurationService().GetUserConfigurations(UserId);
-            return Json(result);
+            return Ok(result);
         }
 
         /// <summary>
@@ -161,7 +164,7 @@ namespace AuctionDemo.Controllers
         public virtual IHttpActionResult UserConfigurationPut([FromBody]User_Configuration userConfigurations)
         {
             var result = new UserConfigurationService().PutUserConfigurations(UserId, userConfigurations);
-            return Created("", result);
+            return Ok( result);
         }
 
     }

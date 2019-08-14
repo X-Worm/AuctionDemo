@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=9.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.9.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -387,23 +390,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AuctionContext.cs" />
-    <Compile Include="Models\AuthRepository\AuthRepository.cs" />
-    <Compile Include="Models\Bid.cs" />
-    <Compile Include="Models\Lot.cs" />
-    <Compile Include="Models\OAuthContext.cs" />
-    <Compile Include="Models\Repository\GenericRepository.cs" />
-    <Compile Include="Models\Unit of Work\UnitOfWork.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\User_Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
-    <Compile Include="Services\BidService.cs" />
-    <Compile Include="Services\FieldLevelSelectionService.cs" />
-    <Compile Include="Services\LotService.cs" />
-    <Compile Include="Services\UserConfigurationService.cs" />
-    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BidViewModel.cs" />
+    <Compile Include="ViewModels\LotViewModel.cs" />
+    <Compile Include="ViewModels\Mappers\AutoMapperConfig.cs" />
+    <Compile Include="ViewModels\Mappers\BidMapper.cs" />
+    <Compile Include="ViewModels\Mappers\LotMapper.cs" />
+    <Compile Include="ViewModels\Mappers\UserMapper.cs" />
+    <Compile Include="ViewModels\UserViewmodel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

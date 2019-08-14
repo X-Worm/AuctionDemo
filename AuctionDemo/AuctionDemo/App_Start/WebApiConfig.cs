@@ -1,8 +1,8 @@
 ﻿using Exception_Log;
-using Exception_Log.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 
@@ -13,6 +13,8 @@ namespace AuctionDemo
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+            config.Formatters.Add(new XmlMediaTypeFormatter());
+            config.Formatters.XmlFormatter.UseXmlSerializer = true;
 
             // Web API routes
             config.MapHttpAttributeRoutes();

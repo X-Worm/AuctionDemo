@@ -16,8 +16,11 @@ C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\b
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\bin\Debug\Newtonsoft.Json.xml
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\bin\Debug\System.Text.Encodings.Web.xml
-C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\obj\Debug\AuctionDemo.DAL.csprojAssemblyReference.cache
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\obj\Debug\AuctionDemo.DAL.csproj.CoreCompileInputs.cache
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\obj\Debug\AuctionDemo.DAL.csproj.CopyComplete
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\obj\Debug\AuctionDemo.DAL.dll
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\obj\Debug\AuctionDemo.DAL.pdb
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\bin\Debug\AutoMapper.dll
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\bin\Debug\AutoMapper.pdb
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\bin\Debug\AutoMapper.xml
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo.DAL\obj\Debug\AuctionDemo.DAL.csprojAssemblyReference.cache

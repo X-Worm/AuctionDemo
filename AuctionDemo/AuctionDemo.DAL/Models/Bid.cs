@@ -11,18 +11,18 @@ namespace AuctionDemo.DAL.Models
     public partial class Bid
     {
         [Key]
-        public short Bid_Id { get; set; }
+        public short BidId { get; set; }
 
-        public short Lot_Id { get; set; }
+        public short LotId { get; set; }
 
         [StringLength(50)]
         public string Comments { get; set; }
 
-        public int bid_Price { get; set; }
+        public int BidPrice { get; set; }
 
         public DateTime Date { get; set; }
 
-        public short User_Id { get; set; }
+        public short UserId { get; set; }
 
         [JsonIgnore]
         public virtual User User { get; set; }

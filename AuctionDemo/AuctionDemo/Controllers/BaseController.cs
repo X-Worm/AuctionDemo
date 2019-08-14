@@ -9,6 +9,10 @@ using System.Web.Http;
 using System.Configuration;
 using Microsoft.Owin.Security;
 using System.Web;
+using AutoMapper;
+using AuctionDemo.ViewModels;
+using AuctionDemo.DAL.Models;
+using AuctionDemo.ViewModels.Mappers;
 
 namespace AuctionDemo.Controllers
 {
@@ -17,6 +21,13 @@ namespace AuctionDemo.Controllers
     /// </summary>
     public class BaseController : ApiController
     {
+       public IMapper mapper;
+
+        public BaseController()
+        {
+            MapperConfiguration config = AutoMapperConfig.Initialize();
+            mapper = config.CreateMapper();
+        }
         /// <summary>
         /// Gets the authenticated user identifier.
         /// </summary>
@@ -49,7 +60,6 @@ namespace AuctionDemo.Controllers
         {
             base.Dispose(disposing);
         }
-
 
     }
 

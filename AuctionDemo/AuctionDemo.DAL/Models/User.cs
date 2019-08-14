@@ -18,7 +18,7 @@ namespace AuctionDemo.DAL.Models
         }
 
         [Key]
-        public short User_Id { get; set; }
+        public short UserId { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -37,11 +37,11 @@ namespace AuctionDemo.DAL.Models
 
         [Required]
         [StringLength(50)]
-        public string Mail_Address { get; set; }
+        public string MailAddress { get; set; }
 
         public int Balance { get; set; }
 
-        public int Frozen_Balance { get; set; }
+        public int FrozenBalance { get; set; }
 
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -23,12 +23,12 @@ namespace AuctionDemo.DAL.Models.AuthRepository
 
         public async Task<IdentityResult> RegisterUser(User userModel)
         {
-            userModel.Frozen_Balance = 0;
+            userModel.FrozenBalance = 0;
             userModel.Bid = null; userModel.Lot = null;
             IdentityUser user = new IdentityUser
             {
                 UserName = userModel.Name,
-                Id = userModel.User_Id.ToString()
+                Id = userModel.UserId.ToString()
             };
             int localUserId = 0;
 
@@ -64,14 +64,14 @@ namespace AuctionDemo.DAL.Models.AuthRepository
             db.SaveChanges();
 
             // Get User_id of created user 
-            id = db.User.OrderByDescending(item => item.User_Id).Select(item => item.User_Id).FirstOrDefault();
+            id = db.User.OrderByDescending(item => item.UserId).Select(item => item.UserId).FirstOrDefault();
 
             // Create default user configuration with default fields
             User_Configuration localConfiguration = new User_Configuration();
-            localConfiguration.User_Id = (short)id;
-            localConfiguration.Auction_Finished = false;
-            localConfiguration.Bid_Placed_Higher = false;
-            localConfiguration.Bid_Win_Lot = false;
+            localConfiguration.UserId = (short)id;
+            localConfiguration.AuctionFinished = false;
+            localConfiguration.BidPlacedHigher = false;
+            localConfiguration.BidWinLot = false;
             db.User_Configuration.Add(localConfiguration);
             db.SaveChanges();
 

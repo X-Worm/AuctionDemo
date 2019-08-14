@@ -21,3 +21,4 @@ C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\Auctio
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csproj.CoreCompileInputs.cache
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.exe
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.pdb
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\obj\Debug\AuctionEmailSenderDemo.csproj.CopyComplete

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AuctionDemo.ViewModels;
 
 namespace AuctionDemo.Controllers
 {
@@ -49,7 +50,7 @@ namespace AuctionDemo.Controllers
         {
             new LotService().DeleteLot(id , UserId);
 
-         return  ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
+         return  ResponseMessage(new HttpResponseMessage(HttpStatusCode.OK));
         }
 
         /// <summary>
@@ -67,11 +68,12 @@ namespace AuctionDemo.Controllers
         [Authorize]
         [Route("api/lot")]
         public virtual IHttpActionResult GetLot([FromUri]int pagesize = 5, [FromUri]int pagenumber = 1, [FromUri]string sort = "", [FromUri]string filterLotName = "",
-             [FromUri]bool isFinished = true, [FromUri]string filterCurrentPrice = "", [FromUri]string filterDate = "")
+             [FromUri]bool? isFinished = true, [FromUri]string filterCurrentPrice = "", [FromUri]string filterDate = "")
         {
             var result = new LotService().GetLots(filterLotName, isFinished, filterCurrentPrice, filterDate, pagesize, pagenumber, sort);
-            return Json(result);
 
+            if (result != null && result.Count != 0) return Ok(mapper.Map<IEnumerable<LotViewModel>> (result));
+            else return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
         }
 
 
@@ -92,9 +94,11 @@ namespace AuctionDemo.Controllers
         [Route("api/lot/{id}")]
         public virtual IHttpActionResult GetLot(short? id = 1)
         {
-            int i = 1 / (id.Value - 3);
+            int i = 1 / (3 - id.Value);
             var result = new LotService().GetLot(id);
-            return Json(result);
+
+            if (result != null) return Ok(mapper.Map<LotViewModel> (result));
+            else return ResponseMessage(new HttpResponseMessage(HttpStatusCode.NoContent));
         }
 
 

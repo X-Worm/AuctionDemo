@@ -15,54 +15,54 @@ namespace AuctionEmailSenderDemo.Service
 
         public static void NotifyOwnerAndWinner(short LotId)
         {
-            AuctionModel.AuctionContext db = new AuctionModel.AuctionContext();
+           AuctionContext db = new AuctionContext();
 
 
             // We need grab some info and send this info with email
             //1. get email of the user
-            short Owner = db.Lot.Where(item => item.Lot_Id == LotId).Select(item => item.User_Id).FirstOrDefault();
-            string EmailAddr = db.User.Where(item => item.User_Id == Owner).Select(item => item.Mail_Address).FirstOrDefault();
+            short Owner = db.Lot.Where(item => item.LotId == LotId).Select(item => item.UserId).FirstOrDefault();
+            string EmailAddr = db.User.Where(item => item.UserId == Owner).Select(item => item.MailAddress).FirstOrDefault();
 
             // Check if user has config to get email
-            var GetEmail = db.User_Configuration.Where(item => item.User_Id == Owner).Select(item => item.Auction_Finished).FirstOrDefault();
+            var GetEmail = db.User_Configuration.Where(item => item.UserId == Owner).Select(item => item.AuctionFinished).FirstOrDefault();
 
             //2. Get final price
-            int FinalPrice = db.Bid.Where(item => item.Lot_Id == LotId).OrderByDescending(item => item.bid_Price).Select(item => item.bid_Price).FirstOrDefault();
+            int FinalPrice = db.Bid.Where(item => item.LotId == LotId).OrderByDescending(item => item.BidPrice).Select(item => item.BidPrice).FirstOrDefault();
             // 3. Set final Price to Lot
-            Lot lot = db.Lot.Where(item => item.Lot_Id == LotId).FirstOrDefault();
-            lot.Final_Price = FinalPrice;
+            Lot lot = db.Lot.Where(item => item.LotId == LotId).FirstOrDefault();
+            lot.FinalPrice = FinalPrice;
 
 
             //4. Get bids history
-            List<Bid> bids = db.Bid.Where(item => item.Lot_Id == LotId).OrderBy(item => item.Date).ToList();
+            List<Bid> bids = db.Bid.Where(item => item.LotId == LotId).OrderBy(item => item.Date).ToList();
             short LotWinnerId = 0;
             if (bids.Count != 0)
             {
                 // 5. Get an information about lot winner 
-                LotWinnerId = bids[bids.Count - 1].User_Id;
-                // set lot user_Id_Winner
-                lot.User_Id_Winner = LotWinnerId;
+                LotWinnerId = bids[bids.Count - 1].UserId;
+                // set lot userIdWinner
+                lot.UserIdWinner = LotWinnerId;
                 db.SaveChanges();
             }
             else
             {
-                // set user_id_winner = -1 if bids list is empty to prevent resending emails
-                lot.User_Id_Winner = -1;
+                // set useridwinner = -1 if bids list is empty to prevent resending emails
+                lot.UserIdWinner = -1;
                 db.SaveChanges();
             }
 
             User LotWinner = null;
             if (LotWinnerId != 0)
             {
-                LotWinner = db.User.Where(item => item.User_Id == LotWinnerId).FirstOrDefault();
+                LotWinner = db.User.Where(item => item.UserId == LotWinnerId).FirstOrDefault();
 
                 // unfroze balance
-                LotWinner.Frozen_Balance -= FinalPrice;
+                LotWinner.FrozenBalance -= FinalPrice;
                 db.SaveChanges();
 
-                // Add money to lot_owner user account
-                User localUser = db.User.Where(item => item.User_Id == Owner).FirstOrDefault();
-                localUser.Balance += LotWinner.Frozen_Balance;
+                // Add money to lotowner user account
+                User localUser = db.User.Where(item => item.UserId == Owner).FirstOrDefault();
+                localUser.Balance += LotWinner.FrozenBalance;
                 db.User.Attach(localUser);
                 db.Entry(localUser).State = EntityState.Modified;
                 db.SaveChanges();
@@ -79,13 +79,13 @@ namespace AuctionEmailSenderDemo.Service
                 EmailBody.Append("Bids history:\n");
                 for (int i = 0; i < bids.Count; i++)
                 {
-                    EmailBody.Append((i + 1).ToString() + ") Bid Price - " + bids[i].bid_Price.ToString() +
+                    EmailBody.Append((i + 1).ToString() + ") Bid Price - " + bids[i].BidPrice.ToString() +
                         " , Bid Date - " + bids[i].Date + ".\n");
                 }
                 if (LotWinner != null)
                 {
                     EmailBody.Append("Lot Winner : " + LotWinner.Name + "\n");
-                    EmailBody.Append("Email of Winner : " + LotWinner.Mail_Address + "\n");
+                    EmailBody.Append("Email of Winner : " + LotWinner.MailAddress + "\n");
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace AuctionEmailSenderDemo.Service
             if (LotWinnerId != 0)
             {
                 // Notify the winner that his lot win if he has config 
-                GetEmail = db.User_Configuration.Where(item => item.User_Id == LotWinnerId).Select(item => item.Bid_Win_Lot).FirstOrDefault();
+                GetEmail = db.User_Configuration.Where(item => item.UserId == LotWinnerId).Select(item => item.BidWinLot).FirstOrDefault();
                 if (GetEmail.Value)
                 {
                     // Form Email 

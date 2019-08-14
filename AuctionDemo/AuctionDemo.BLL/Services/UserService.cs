@@ -1,4 +1,5 @@
-﻿using AuctionDemo.DAL.Models;
+﻿using AuctionDemo.BLL.ExceptionHandler;
+using AuctionDemo.DAL.Models;
 using AuctionDemo.DAL.Models.Unit_of_Work;
 using System;
 using System.Collections.Generic;
@@ -17,17 +18,17 @@ namespace AuctionDemo.BLL.Services
         {
             if (UserId != null)
             {
-                return unitOfWork.User.dbSet.Where(item => item.User_Id == UserId).Select(item => item.Balance).FirstOrDefault();
+                return unitOfWork.User.dbSet.Where(item => item.UserId == UserId).Select(item => item.Balance).FirstOrDefault();
             }
-            else throw new Exception("Server Error, invalid User_Id");
+            else throw new NewBadRequestException("Server Error, invalid User_Id");
         }
 
         public int AddMoney(short? UserId, int amount)
         {
-            if (UserId == null) throw new Exception("Server Error, invalid User_Id");
+            if (UserId == null) throw new NewBadRequestException("Server Error, invalid User_Id");
             else
             {
-                var userAccount = unitOfWork.User.dbSet.Where(item => item.User_Id == UserId).FirstOrDefault();
+                var userAccount = unitOfWork.User.dbSet.Where(item => item.UserId == UserId).FirstOrDefault();
                 userAccount.Balance += amount;
                 unitOfWork.User.Update(userAccount);
                 unitOfWork.Save();
@@ -40,7 +41,7 @@ namespace AuctionDemo.BLL.Services
         {
             // check if there is a user with the same login and password
             var IsNotUnique = unitOfWork.User.dbSet.Any(item => item.Login == user.Login && item.Password == user.Password);
-            if (IsNotUnique) throw new Exception("there is a user with the same login and password");
+            if (IsNotUnique) throw new NewBadRequestException("there is a user with the same login and password");
 
             else
             {
@@ -52,8 +53,8 @@ namespace AuctionDemo.BLL.Services
         public int WidthdrawFromAccount(short? UserId, int amount)
         {
             // Check if User can widthraw this amount
-            var UserBalance = unitOfWork.User.dbSet.Where(item => item.User_Id == UserId).FirstOrDefault();
-            if (UserBalance.Balance < amount) throw new Exception("You cant widthraw this amount , maximum amount to widthraw is " + UserBalance.Balance.ToString());
+            var UserBalance = unitOfWork.User.dbSet.Where(item => item.UserId == UserId).FirstOrDefault();
+            if (UserBalance.Balance < amount) throw new NewBadRequestException("You cant widthraw this amount , maximum amount to widthraw is " + UserBalance.Balance.ToString());
             else
             {
                 UserBalance.Balance -= amount;

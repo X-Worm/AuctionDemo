@@ -62,7 +62,7 @@ namespace AuctionDemo.Providers
                     "The user name or password is incorrect.");
                     return;
                 }
-                localUserId = entry.User_Id;
+                localUserId = entry.UserId;
             }
 
             ClaimsIdentity oAuthIdentity =

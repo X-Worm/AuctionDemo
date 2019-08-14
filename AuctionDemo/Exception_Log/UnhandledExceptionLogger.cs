@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
+using AuctionDemo.DAL.Models.ExceptionContext;
 
 namespace Exception_Log
 {
@@ -32,13 +33,13 @@ namespace Exception_Log
             var timeUtc = DateTime.Now;
 
             SqlErrorLogging sqlErrorLogging = new SqlErrorLogging();
-            Exception_Log.Models.Exception_Log apiError = new Exception_Log.Models.Exception_Log()
+            AuctionDemo.DAL.Models.ExceptionContext.Exception_Log apiError = new AuctionDemo.DAL.Models.ExceptionContext.Exception_Log()
             {
-                Request_Id = Guid.NewGuid(),
-               Exception_Message = strLogText,
+                RequestId = Guid.NewGuid(),
+               ExceptionMessage = strLogText,
                 Route = requestedURi,
                 Method = requestMethod,
-                Exception_Date = DateTime.Now,
+                ExceptionDate = DateTime.Now,
                 RequestHeaders = context.Request.Headers.ToString()
             };
             sqlErrorLogging.InsertErrorLog(apiError);

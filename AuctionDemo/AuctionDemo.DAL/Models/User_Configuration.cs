@@ -11,13 +11,13 @@ namespace AuctionDemo.DAL.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public short User_Id { get; set; }
+        public short UserId { get; set; }
 
-        public bool? Auction_Finished { get; set; }
+        public bool? AuctionFinished { get; set; }
 
-        public bool? Bid_Win_Lot { get; set; }
+        public bool? BidWinLot { get; set; }
 
-        public bool? Bid_Placed_Higher { get; set; }
+        public bool? BidPlacedHigher { get; set; }
 
         [JsonIgnore]
         public virtual User User { get; set; }

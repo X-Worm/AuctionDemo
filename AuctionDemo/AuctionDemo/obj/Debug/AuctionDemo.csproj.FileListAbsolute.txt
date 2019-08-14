@@ -344,3 +344,6 @@ C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\A
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.BLL.dll
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.BLL.pdb
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AuctionDemo.BLL.dll.config
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AutoMapper.dll
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AutoMapper.pdb
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AutoMapper.xml
