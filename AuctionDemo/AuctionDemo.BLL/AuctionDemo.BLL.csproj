@@ -53,6 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="EmailBuilder\EmailObject.cs" />
+    <Compile Include="EmailBuilder\EmailBuilder.cs" />
+    <Compile Include="EmailBuilder\EmailBuilderImplement.cs" />
+    <Compile Include="EmailBuilder\SendEmail.cs" />
     <Compile Include="ExceptionHandler\NewBadRequestException.cs" />
     <Compile Include="Extensions\ApplySort.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,5 +75,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

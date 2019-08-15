@@ -30,7 +30,7 @@ namespace Exception_Log
 
             var requestedURi = (string)context.Request.RequestUri.AbsoluteUri ;
             var requestMethod = context.Request.Method.ToString();
-            var timeUtc = DateTime.Now;
+            var timeUtc = DateTime.UtcNow;
 
             SqlErrorLogging sqlErrorLogging = new SqlErrorLogging();
             AuctionDemo.DAL.Models.ExceptionContext.Exception_Log apiError = new AuctionDemo.DAL.Models.ExceptionContext.Exception_Log()
@@ -39,7 +39,7 @@ namespace Exception_Log
                ExceptionMessage = strLogText,
                 Route = requestedURi,
                 Method = requestMethod,
-                ExceptionDate = DateTime.Now,
+                ExceptionDate = DateTime.UtcNow,
                 RequestHeaders = context.Request.Headers.ToString()
             };
             sqlErrorLogging.InsertErrorLog(apiError);

@@ -22,7 +22,7 @@ namespace AuctionDemo.BLL.Services
         {
 
             // Set lot start date
-            lot.StartDate = DateTime.Now;
+            lot.StartDate = DateTime.UtcNow;
 
             // set userId - owner of the lot
             lot.UserId = userId.Value;
@@ -102,7 +102,7 @@ namespace AuctionDemo.BLL.Services
 
             // Date formating
             List<DateTime> filterDateRange = new List<DateTime>();
-            DateTime minDate = DateTime.Now; DateTime maxDate = DateTime.Now;
+            DateTime minDate = DateTime.UtcNow; DateTime maxDate = DateTime.UtcNow;
 
             if (string.IsNullOrEmpty(filterDate)) filterDate = "";
             else if (!filterDate.Contains(","))
@@ -157,7 +157,7 @@ namespace AuctionDemo.BLL.Services
 
             // Check if user update cloesed lot
             var LotEndDate = unitOfWork.Lot.dbSet.Where(item => item.LotId == LotId).Select(item => item.EndDate).FirstOrDefault();
-            if (DateTime.Now >= LotEndDate) throw new NewBadRequestException("Imposible update lot. This lot is cloesd");
+            if (DateTime.UtcNow >= LotEndDate) throw new NewBadRequestException("Imposible update lot. This lot is cloesd");
 
 
             // User can change only Initial_Price , TimeOfLot , Name or Description

@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
-using AuctionEmailSenderDemo.AuctionModel;
+using AuctionDemo.DAL.Models;
 
 namespace AuctionEmailSenderDemo
 {
     public partial class AuctionEmailSender : ServiceBase
     {
         private System.Timers.Timer myTimer;
-
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public AuctionEmailSender()
         {
             InitializeComponent();
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(@"C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionEmailSenderDemo\AuctionEmailSenderDemo\log4net.config"));
         }
 
         protected override void OnStart(string[] args)
         {
+            log.Info("Service started");
             myTimer = new System.Timers.Timer();
                 myTimer.Interval = 60000;
                 myTimer.Enabled = true;
@@ -32,6 +35,7 @@ namespace AuctionEmailSenderDemo
 
         protected override void OnStop()
         {
+            log.Info("Service stoped");
             myTimer.Enabled = false;
         }
 
@@ -43,29 +47,15 @@ namespace AuctionEmailSenderDemo
             // 2. notify user that his bid win the lot
             // We compare 2 parameter DateNow with EndDate , if DateNow > EndDate we perform this operations
             AuctionContext db = new AuctionContext();
-            // Service will explain all lot in database
-            var Lot = db.Lot.Select(item => item.LotId).ToList();
 
+            var Lot = db.Lot.Where(item => item.EndDate < DateTime.UtcNow && item.UserIdWinner == 0).Select(item => item.LotId).ToList();
             for (int i = 0; i < Lot.Count; i++)
             {
-                int localLotId = Lot[i];
-                // Check if this Lot finished
-                var EndDate = db.Lot.Where(item => item.LotId == localLotId).Select(item => item.EndDate).FirstOrDefault();
-                if (DateTime.Now > EndDate)
-                {
-                    //Check if User_Id_Winner is set and != 0 , if User_Id_Winner is set its mean
-                    // that service already check is lot
-                    var IsComplete = db.Lot.Where(item => item.LotId == localLotId).Select(item => item.UserIdWinner).FirstOrDefault();
-
-                    if (IsComplete == null | IsComplete == 0)
-                    {
-                        // Notify the lot owner that lot finished , Winner tha his lot win , and set User_Id_Winner
-                        Service.LotFinishedService.NotifyOwnerAndWinner(Lot[i]);
-                    }
-                }
+                        Service.LotFinishedService.NotifyOwner(Lot[i] , log);
+                        Service.LotFinishedService.NotifyWinner(Lot[i] , log);
             }
 
-            Console.WriteLine("Succsecful\n");
+            log.Info(Lot.Count.ToString() + " lots has reviewed.");
         }
 
     }

@@ -26,7 +26,7 @@ namespace AuctionDemo.BLL.Services
             bid.UserId = UserId.Value;
 
             // Set Current data to Date
-            bid.Date = DateTime.Now;
+            bid.Date = DateTime.UtcNow;
 
             // Check if this lot exist
             var IsExist = unitOfWork.Lot.dbSet.Any(item => item.LotId == bid.LotId);

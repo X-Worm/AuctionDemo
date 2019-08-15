@@ -1,4 +1,4 @@
-﻿using AuctionEmailSenderDemo.AuctionModel;
+﻿using AuctionDemo.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,30 +8,27 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace AuctionEmailSenderDemo.Service
 {
     public static class LotFinishedService
     {
 
-        public static void NotifyOwnerAndWinner(short LotId)
+        public static void NotifyOwner(short LotId , log4net.ILog log)
         {
-           AuctionContext db = new AuctionContext();
-
+            AuctionContext db = new AuctionContext();
 
             // We need grab some info and send this info with email
             //1. get email of the user
             short Owner = db.Lot.Where(item => item.LotId == LotId).Select(item => item.UserId).FirstOrDefault();
             string EmailAddr = db.User.Where(item => item.UserId == Owner).Select(item => item.MailAddress).FirstOrDefault();
 
-            // Check if user has config to get email
-            var GetEmail = db.User_Configuration.Where(item => item.UserId == Owner).Select(item => item.AuctionFinished).FirstOrDefault();
-
             //2. Get final price
             int FinalPrice = db.Bid.Where(item => item.LotId == LotId).OrderByDescending(item => item.BidPrice).Select(item => item.BidPrice).FirstOrDefault();
+
             // 3. Set final Price to Lot
             Lot lot = db.Lot.Where(item => item.LotId == LotId).FirstOrDefault();
             lot.FinalPrice = FinalPrice;
-
 
             //4. Get bids history
             List<Bid> bids = db.Bid.Where(item => item.LotId == LotId).OrderBy(item => item.Date).ToList();
@@ -56,18 +53,16 @@ namespace AuctionEmailSenderDemo.Service
             {
                 LotWinner = db.User.Where(item => item.UserId == LotWinnerId).FirstOrDefault();
 
-                // unfroze balance
+                // reduce winner balance and unfroze balance
+                LotWinner.Balance -= FinalPrice;
                 LotWinner.FrozenBalance -= FinalPrice;
                 db.SaveChanges();
 
-                // Add money to lotowner user account
-                User localUser = db.User.Where(item => item.UserId == Owner).FirstOrDefault();
-                localUser.Balance += LotWinner.FrozenBalance;
-                db.User.Attach(localUser);
-                db.Entry(localUser).State = EntityState.Modified;
-                db.SaveChanges();
-
             }
+
+
+            // Check if user has config to get email
+            var GetEmail = db.User_Configuration.Where(item => item.UserId == Owner).Select(item => item.AuctionFinished).FirstOrDefault();
 
             if (GetEmail.Value)
             {
@@ -89,72 +84,54 @@ namespace AuctionEmailSenderDemo.Service
                 }
                 else
                 {
-                    EmailBody.Append("There are no bids for this lot");
+                    EmailBody.Append("<h1>There are no bids for this lot</h1>");
                 }
 
-
-
-                // Відправник
-                MailAddress from = new MailAddress("vasilkindiy@gmail.com", "Auction");
-
-                // Саме повідомлення
-                string Email = EmailBody.ToString();
-                // Отримувач
-                MailAddress to = new MailAddress(EmailAddr);
-
-                // Створення повідомлення
-                MailMessage m = new MailMessage(from, to);
-                // Тема листа
-                m.Subject = "Lot is finished";
-                // Текст повідомлення
-                m.Body = Email;
-                // Лист в формвті html
-                m.IsBodyHtml = false;
-
-                // адрес smtp-сервера і порт
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                // логін і пароль
-                NetworkCredential credentials = new NetworkCredential("vasilkindiy@gmail.com", "vasasa00");
-                smtp.Credentials = credentials;
-                smtp.EnableSsl = true;
-                if (credentials.Password == "") return;
-                smtp.Send(m);
-
-            }
-
-            if (LotWinnerId != 0)
-            {
-                // Notify the winner that his lot win if he has config 
-                GetEmail = db.User_Configuration.Where(item => item.UserId == LotWinnerId).Select(item => item.BidWinLot).FirstOrDefault();
-                if (GetEmail.Value)
+                log.Info("Sending Email to Lot owner");
+                // Send Email
+                try
                 {
-                    // Form Email 
+                    EmailSender.SendEmail(EmailAddr, "Auction", EmailBody.ToString());
+                }
+                catch
+                {
+                    log.Error("Error while sending mail to Lot owner");
+                }
+            }
+        }
 
-                    // Відправник
-                    MailAddress from = new MailAddress("vasilkindiy@gmail.com", "Auction");
+        public static void NotifyWinner(short LotId , log4net.ILog log)
+        {
+            AuctionContext db = new AuctionContext();
 
-                    // Саме повідомлення
-                    string Email = "Our congratulations!\nLot : " + lot.Name + " is finished and your bid win this lot!";
-                    // Отримувач
-                    MailAddress to = new MailAddress(EmailAddr);
+            //1.Get userId of the winner
+            var userId = db.Bid.Where(item => item.LotId == LotId).OrderByDescending(item => item.BidPrice).Select(item => item.UserId).FirstOrDefault();
 
-                    // Створення повідомлення
-                    MailMessage m = new MailMessage(from, to);
-                    // Тема листа
-                    m.Subject = "You win lot";
-                    // Текст повідомлення
-                    m.Body = Email;
-                    // Лист в формвті html
-                    m.IsBodyHtml = false;
+            //2. Get email address of this user
+            if (userId != 0)
+            {
+                var emailAddress = db.User.Where(item => item.UserId == userId).Select(item => item.MailAddress).FirstOrDefault();
 
-                    // адрес smtp-сервера і порт
-                    SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                    // логін і пароль
-                    NetworkCredential credentials = new NetworkCredential("vasilkindiy@gmail.com", "vasasa00");
-                    smtp.Credentials = credentials;
-                    smtp.EnableSsl = true;
-                    if (credentials.Password == "") return;
-                    smtp.Send(m);
+                // 3. Get lot name
+                var lotName = db.Lot.Where(item => item.LotId == LotId).Select(item => item.Name).FirstOrDefault();
+
+                // Form email body
+                string emailBody = "Our congratulations!\nLot : " + lotName + " is finished and your bid win this lot!";
+
+                // Get User Config
+                var IsSentEmail = db.User_Configuration.Where(item => item.UserId == userId).Select(item => item.BidWinLot).FirstOrDefault();
+                // Send Email
+                if (IsSentEmail.Value)
+                {
+                    log.Info("Sending Email to Lot winner");
+                    try
+                    {
+                        EmailSender.SendEmail(emailAddress, "Auction", emailBody);
+                    }
+                    catch
+                    {
+                        log.Error("Error while sending mail to Lot winner");
+                    }
                 }
             }
         }
