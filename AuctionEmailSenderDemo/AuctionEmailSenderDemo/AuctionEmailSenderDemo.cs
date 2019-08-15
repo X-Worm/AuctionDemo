@@ -55,7 +55,7 @@ namespace AuctionEmailSenderDemo
                         Service.LotFinishedService.NotifyWinner(Lot[i] , log);
             }
 
-            log.Info(Lot.Count.ToString() + " lots has reviewed.");
+            if(Lot.Count != 0)  log.Info(Lot.Count.ToString() + " lots has reviewed.");
         }
 
     }

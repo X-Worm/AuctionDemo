@@ -64,11 +64,6 @@
     <Compile Include="AuctionEmailSenderDemo.Designer.cs">
       <DependentUpon>AuctionEmailSenderDemo.cs</DependentUpon>
     </Compile>
-    <Compile Include="AuctionModel\AuctionContext.cs" />
-    <Compile Include="AuctionModel\Bid.cs" />
-    <Compile Include="AuctionModel\Lot.cs" />
-    <Compile Include="AuctionModel\User.cs" />
-    <Compile Include="AuctionModel\User_Configuration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">

@@ -85,7 +85,7 @@ namespace AuctionDemo.BLL.Services
 
             // Price formating
             List<int> filterPriceRange = new List<int>();
-            int minPrice = 0, maxPrice = 0;
+            int minPrice = 0, maxPrice = 2147483647;
 
             if (string.IsNullOrEmpty(filterPrice)) filterPrice = "";
             else if (!filterPrice.Contains(","))
@@ -102,7 +102,7 @@ namespace AuctionDemo.BLL.Services
 
             // Date formating
             List<DateTime> filterDateRange = new List<DateTime>();
-            DateTime minDate = DateTime.UtcNow; DateTime maxDate = DateTime.UtcNow;
+            DateTime minDate = DateTime.MinValue; DateTime maxDate = DateTime.MaxValue;
 
             if (string.IsNullOrEmpty(filterDate)) filterDate = "";
             else if (!filterDate.Contains(","))

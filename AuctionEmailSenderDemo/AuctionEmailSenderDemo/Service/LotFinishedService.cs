@@ -54,8 +54,12 @@ namespace AuctionEmailSenderDemo.Service
                 LotWinner = db.User.Where(item => item.UserId == LotWinnerId).FirstOrDefault();
 
                 // reduce winner balance and unfroze balance
-                LotWinner.Balance -= FinalPrice;
                 LotWinner.FrozenBalance -= FinalPrice;
+                db.SaveChanges();
+
+                // add money to owner account
+                User lotOwner = db.User.Where(item => item.UserId == Owner).FirstOrDefault();
+                lotOwner.Balance += FinalPrice;
                 db.SaveChanges();
 
             }
@@ -92,6 +96,7 @@ namespace AuctionEmailSenderDemo.Service
                 try
                 {
                     EmailSender.SendEmail(EmailAddr, "Auction", EmailBody.ToString());
+                    log.Info("Email to lot owner with address: " + EmailAddr.ToString() + ", with final Price: " + FinalPrice.ToString() + " is sent");
                 }
                 catch
                 {
@@ -127,6 +132,7 @@ namespace AuctionEmailSenderDemo.Service
                     try
                     {
                         EmailSender.SendEmail(emailAddress, "Auction", emailBody);
+                        log.Info("Email to lot winner with address: " + emailAddress.ToString() + " is sent");
                     }
                     catch
                     {
