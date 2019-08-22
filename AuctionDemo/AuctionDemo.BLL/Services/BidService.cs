@@ -133,36 +133,39 @@ namespace AuctionDemo.BLL.Services
             // Form email address
             StringBuilder emailText = new StringBuilder("", 64);
 
-            emailText.Append("<h2 style = \"color: red; \">" + NewTopUser + " placed a higher bid</h2>");
-            emailText.Append("<h3>Bid info</h3>");
-            emailText.Append("<p>Bid price : " + bid.BidPrice.ToString() + "</p>");
+            emailText.Append("<h2 style = \"color: red; \">" + NewTopUser + " placed a higher bid</h2>\n");
+            emailText.Append("<h3>Bid info</h3>\n");
+            emailText.Append("<p>Bid price : " + bid.BidPrice.ToString() + "</p>\n");
             emailText.Append("<p>Bid date : " + bid.Date.ToString() + "</p>");
 
 
-
-            // Відправник
-            MailAddress from = new MailAddress("vasilkindiy@gmail.com", "Auction");
-            // Отримувач
-            MailAddress to = new MailAddress(AddressToSend);
-
-            // Створення повідомлення
-            MailMessage m = new MailMessage(from, to);
-            // Тема листа
-            m.Subject = "Someone place a higher bid";
-            // Текст повідомлення
-            m.Body = emailText.ToString();
-            // Лист в формвті html
-            m.IsBodyHtml = true;
+            // Сформувати повідомлення
+            AuctionDemo.BLL.EmailBuilder.EmailSender.SendEmail(AddressToSend, "Someone place a higher bid", emailText.ToString());
 
 
-            // адрес smtp-сервера і порт
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            // логін і пароль
-            NetworkCredential credentials = new NetworkCredential("vasilkindiy@gmail.com", "vasasa00");
-            smtp.Credentials = credentials;
-            smtp.EnableSsl = true;
-            if (credentials.Password == "") throw new NewBadRequestException("Invalid email Credentials");
-            smtp.Send(m);
+            //// Відправник
+            //MailAddress from = new MailAddress("vasilkindiy@gmail.com", "Auction");
+            //// Отримувач
+            //MailAddress to = new MailAddress(AddressToSend);
+
+            //// Створення повідомлення
+            //MailMessage m = new MailMessage(from, to);
+            //// Тема листа
+            //m.Subject = "Someone place a higher bid";
+            //// Текст повідомлення
+            //m.Body = emailText.ToString();
+            //// Лист в формвті html
+            //m.IsBodyHtml = true;
+
+
+            //// адрес smtp-сервера і порт
+            //SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            //// логін і пароль
+            //NetworkCredential credentials = new NetworkCredential("vasilkindiy@gmail.com", "vasasa00");
+            //smtp.Credentials = credentials;
+            //smtp.EnableSsl = true;
+            //if (credentials.Password == "") throw new NewBadRequestException("Invalid email Credentials");
+            //smtp.Send(m);
         }
 
         public List<Bid> GetAllBids(short lotId, string order, string filterPrice, string filterDate, int pageSize = 5, int pageNumber = 1)

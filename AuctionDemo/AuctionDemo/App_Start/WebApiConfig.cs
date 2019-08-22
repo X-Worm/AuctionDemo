@@ -31,10 +31,13 @@ namespace AuctionDemo
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
-                 = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
-            config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling
-                 = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            //config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
+            //     = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
+            //config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling
+            //     = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
         }
     }
 }

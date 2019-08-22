@@ -126,6 +126,7 @@ namespace AuctionDemo.BLL.Services
             query = string.IsNullOrEmpty(sort) ? query.OrderBy(item => item.LotId) : query.ApplySort(sort);
             query = query.Skip(pagesize * (pagenumber - 1)).Take(pagesize);
 
+         
             return query.ToList();
         }
 

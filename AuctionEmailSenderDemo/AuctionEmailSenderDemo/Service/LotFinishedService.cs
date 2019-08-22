@@ -1,4 +1,5 @@
 ﻿using AuctionDemo.DAL.Models;
+using AuctionDemo.BLL.EmailBuilder;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -73,18 +74,18 @@ namespace AuctionEmailSenderDemo.Service
                 // Form Email 
                 // Form email Body
                 StringBuilder EmailBody = new StringBuilder(64);
-                EmailBody.Append("Your lot is finished\n");
-                EmailBody.Append("Final Price is : " + FinalPrice.ToString() + "\n");
-                EmailBody.Append("Bids history:\n");
+                EmailBody.Append("<h3>Your lot is finished</h3>\n");
+                EmailBody.Append("<h4>Final Price is : " + FinalPrice.ToString() + "</h4>\n");
+                EmailBody.Append("<p>Bids history:</p>\n");
                 for (int i = 0; i < bids.Count; i++)
                 {
-                    EmailBody.Append((i + 1).ToString() + ") Bid Price - " + bids[i].BidPrice.ToString() +
-                        " , Bid Date - " + bids[i].Date + ".\n");
+                    EmailBody.Append("<p>" + (i + 1).ToString() + ") Bid Price - " + bids[i].BidPrice.ToString() +
+                        " , Bid Date - " + bids[i].Date + ".</p>\n");
                 }
                 if (LotWinner != null)
                 {
-                    EmailBody.Append("Lot Winner : " + LotWinner.Name + "\n");
-                    EmailBody.Append("Email of Winner : " + LotWinner.MailAddress + "\n");
+                    EmailBody.Append("<p>Lot Winner : " + LotWinner.Name + "</p>\n");
+                    EmailBody.Append("<p>Email of Winner : " + LotWinner.MailAddress + "</p>\n");
                 }
                 else
                 {
@@ -95,7 +96,7 @@ namespace AuctionEmailSenderDemo.Service
                 // Send Email
                 try
                 {
-                    EmailSender.SendEmail(EmailAddr, "Auction", EmailBody.ToString());
+                    AuctionDemo.BLL.EmailBuilder.EmailSender.SendEmail(EmailAddr, "Your lot is finished", EmailBody.ToString());
                     log.Info("Email to lot owner with address: " + EmailAddr.ToString() + ", with final Price: " + FinalPrice.ToString() + " is sent");
                 }
                 catch
@@ -131,7 +132,7 @@ namespace AuctionEmailSenderDemo.Service
                     log.Info("Sending Email to Lot winner");
                     try
                     {
-                        EmailSender.SendEmail(emailAddress, "Auction", emailBody);
+                        AuctionDemo.BLL.EmailBuilder.EmailSender.SendEmail(emailAddress, "You win lot", emailBody);
                         log.Info("Email to lot winner with address: " + emailAddress.ToString() + " is sent");
                     }
                     catch
