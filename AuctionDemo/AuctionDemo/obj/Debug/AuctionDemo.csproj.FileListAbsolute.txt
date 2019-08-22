@@ -347,3 +347,5 @@ C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\A
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AutoMapper.dll
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AutoMapper.pdb
 C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\AutoMapper.xml
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\System.Web.Http.Cors.dll
+C:\Users\vasyl.kindii\Documents\GitHub\AuctionDemo\AuctionDemo\AuctionDemo\bin\System.Web.Http.Cors.xml

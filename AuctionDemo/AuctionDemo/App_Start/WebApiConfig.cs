@@ -16,6 +16,9 @@ namespace AuctionDemo
             config.Formatters.Add(new XmlMediaTypeFormatter());
             config.Formatters.XmlFormatter.UseXmlSerializer = true;
 
+            // Enable CORS
+            config.EnableCors();
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
